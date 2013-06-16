@@ -23,5 +23,5 @@ Garage door operation and safety:
   auto-reverse feature, do not install this to your garage door.  Serious injury or death can
   occur without these protection mechanisms in place.
   
-Please post or read the accompanying documentation at:
+Please post to or read the accompanying documentation at:
   http://wp.me/p3oAnz-5
