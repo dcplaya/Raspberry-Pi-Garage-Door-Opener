@@ -53,7 +53,7 @@ var EXTERNAL_WEBSITE_ADDRESS = '';  // Example: 'http://My.Home.Router:8080', Yo
                                     //   be updated regularly.  You could use a dynamic DNS provider like http://dyn.com
 
 // FillMeIn
-var BASIC_AUTH_CODED_STRING = 'YWRtaW4gcGFzc3dvcmQ=';  // This is to set your password for the site
+var BASIC_AUTH_CODED_STRING = 'YWRtaW46cGFzc3dvcmQ=';  // This is to set your password for the site
   // With the code above, you would use the following username and password to login to this server:
   //   username: admin
   //   password: password
@@ -307,7 +307,7 @@ function fileRequest (response, fileName, notFound) {
     }
     else if (notFound == false) {
       console.log(strGetTimeStamp() + ' File not found');
-      fileRequest (response, '/share/status/404.html', true);
+      fileRequest (response, __cwd + '/status/404.html', true);
     }
     else {
       console.log(strGetTimeStamp() + ' Requested file not found. Additionally, error file was not found.');
@@ -339,7 +339,7 @@ https.createServer(options, function (request, response) {
     if (requestHeaders['authorization'] != 'Basic ' + BASIC_AUTH_CODED_STRING) { // 
       response.writeHead(401, {'Content-Type': 'text/html',
         'WWW-Authenticate': 'Basic realm="localhost"'});
-      var fileName = "/share/status/401.html";
+      var fileName = __cwd + "/status/401.html";
       fileRequest(response, fileName);
       return;
     }
