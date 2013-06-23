@@ -37,6 +37,9 @@ var HTTPS_SERVER_PORT = 8080; // The port you want the webserver to listen on
                               //   If you do not already have something using port 443,
                               //   you can just use 443 since that is the default port for SSL
 
+// set to false to disable the email function, true to enable
+var SEND_EMAILS = false;
+
 // FillMeIn
 var EMAIL_HOST = ''; // Enter your SMTP Server Here, example: 'mail.yahoo.com'
 
@@ -170,6 +173,10 @@ function currentStatusUpdate() {
 
 // Main email function
 function sendEmail () {
+  if (SEND_EMAILS == false) {
+    return();
+  }
+  
   var server = email.server.connect({
     user: EMAIL_USER,
     password: EMAIL_PASSWORD,
