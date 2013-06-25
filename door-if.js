@@ -174,7 +174,7 @@ function currentStatusUpdate() {
 // Main email function
 function sendEmail () {
   if (SEND_EMAILS == false) {
-    return();
+    return;
   }
   
   var server = email.server.connect({
