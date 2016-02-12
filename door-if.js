@@ -33,7 +33,7 @@ var STATE_CLOSED = 'Closed';                // Door closed message.
 var STATE_ERROR = 'ERROR';                  // Error message.
 
 // FillMeIn
-var HTTPS_SERVER_PORT = 8080; // The port you want the webserver to listen on
+var HTTPS_SERVER_PORT = 3000; // The port you want the webserver to listen on
                               //   If you do not already have something using port 443,
                               //   you can just use 443 since that is the default port for SSL
 
@@ -56,7 +56,7 @@ var EXTERNAL_WEBSITE_ADDRESS = '';  // Example: 'http://My.Home.Router:8080', Yo
                                     //   be updated regularly.  You could use a dynamic DNS provider like http://dyn.com
 
 // FillMeIn
-var BASIC_AUTH_CODED_STRING = 'YWRtaW46cGFzc3dvcmQ=';  // This is to set your password for the site
+var BASIC_AUTH_CODED_STRING = 'VHJleDRCb2I=';  // This is to set your password for the site
   // With the code above, you would use the following username and password to login to this server:
   //   username: admin
   //   password: password
@@ -328,8 +328,8 @@ var requestHeaders;
 var isAuthorized = false;
 
 var options = {
-  key: fs.readFileSync(__cwd + '/cert.pem'),
-  cert: fs.readFileSync(__cwd + '/cert.pem')
+  key: fs.readFileSync('./key.pem', 'utf8'),
+  cert: fs.readFileSync('./server.crt', 'utf8')
 };
 
 // This is the main HTTPS server function and entrypoint to this app.
@@ -341,15 +341,15 @@ https.createServer(options, function (request, response) {
   console.log(strGetTimeStamp() + ' Page, ' + url + ' Requested from, ' + request.connection.remoteAddress);
   var postData = [];
   var getData = [];
-  if (!isAuthorized) {
-    //console.log(requestHeaders['authorization']);
-    if (requestHeaders['authorization'] != 'Basic ' + BASIC_AUTH_CODED_STRING) { // 
+  /*if (!isAuthorized) {
+    console.log(requestHeaders['authorization']);
+    if (requestHeaders['authorization'] != 'Basic ' + BASIC_AUTH_CODED_STRING) { 
       response.writeHead(401, {'Content-Type': 'text/html',
         'WWW-Authenticate': 'Basic realm="localhost"'});
       var fileName = __cwd + "/status/401.html";
       fileRequest(response, fileName);
       return;
-    }
+    }*/
     console.log(strGetTimeStamp() + ' User @ ' + request.connection.remoteAddress + ' has been authorized.');
   }
   
@@ -379,8 +379,7 @@ https.createServer(options, function (request, response) {
   getArgs = arr.join();
   
   if ((fileName == '/') || (fileName == '')) {
-    response.writeHead(200, {'Content-Type': 'text/html',
-      'WWW-Authenticate': 'Basic realm="localhost"'});
+    response.writeHead(200, {'Content-Type': 'text/html'});
     fileName = 'mainDoor.html';
   }
 
@@ -388,26 +387,22 @@ https.createServer(options, function (request, response) {
   
   if (fileName == 'getDoor.json') { 
     // application/json 
-    response.writeHead(200, {'Content-Type': 'application/json',
-      'WWW-Authenticate': 'Basic realm="localhost"'});
+    response.writeHead(200, {'Content-Type': 'application/json'});
     console.log(strGetTimeStamp() + ' Door status requested...');
     response.write(currentState);
     response.end();
   }
   else if (fileName == 'operateDoor.json') {
-    response.writeHead(200, {'Content-Type': 'application/json',
-      'WWW-Authenticate': 'Basic realm="localhost"'});
+    response.writeHead(200, {'Content-Type': 'application/json'});
     operateDoor();
     response.end();
   }
   else if (fileName.split('.')[fileName.split('.').length-1].toLowerCase() == 'css') {
-    response.writeHead(200, {'Content-Type': 'text/css',
-      'WWW-Authenticate': 'Basic realm="localhost"'});
+    response.writeHead(200, {'Content-Type': 'text/css'});
     fileRequest(response, __cwd + docRoot + fileName);
   }
   else {
-    response.writeHead(200, {'Content-Type': 'text/html',
-      'WWW-Authenticate': 'Basic realm="localhost"'});
+    response.writeHead(200, {'Content-Type': 'text/html'});
     fileRequest(response, __cwd + docRoot + fileName);
   }
 }).listen(HTTPS_SERVER_PORT);
