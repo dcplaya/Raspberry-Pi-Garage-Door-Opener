@@ -221,7 +221,7 @@ https.createServer(options, function (request, response) {
       'WWW-Authenticate': 'Basic realm="localhost"'});
     doorIO.currentStatusUpdate();
     console.log(consoleLog.strGetTimeStamp() + ' Door status requested...' + 'Current Door Status = ' + doorIO.currentState);
-    response.write(currentState);
+    //response.write(currentState);
     response.end();
   }
   else if (fileName == 'operateDoor.json') {
