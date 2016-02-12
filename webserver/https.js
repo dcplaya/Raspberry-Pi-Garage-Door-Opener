@@ -1,8 +1,22 @@
 //Splitting out the https server setup from the main door-if.js to help clean things up and make it module
 
+var https = require('https');               // node module
+var fs = require('fs');                     // node module
+
+var HTTPS_SERVER_PORT = 3000; // The port you want the webserver to listen on
+                              //   If you do not already have something using port 443,
+                              //   you can just use 443 since that is the default port for SSL
+
+//var https = function() {
+    
+//};
 
 
-
+// Options for the HTTPS server. 
+var options = {
+  key: fs.readFileSync('./key.pem', 'utf8'),
+  cert: fs.readFileSync('./server.crt', 'utf8')
+};
 
 // This is the main HTTPS server function and entrypoint to this app.
 //   It listens on the specified port for incoming requests and responds 
@@ -78,3 +92,9 @@ https.createServer(options, function (request, response) {
     fileRequest(response, __cwd + docRoot + fileName);
   }
 }).listen(HTTPS_SERVER_PORT);
+
+console.log('Server started.');
+
+//Exports the https contructor from this module
+module.exports = https;
+

@@ -14,11 +14,14 @@
 // Include other nodejs modules and external modules.
 var gpio = require('gpio');                 // external module
 var os = require('os');                     // node module
-var https = require('https');               // node module
+//var https = require('https');               // node module
 var querystring = require('querystring');   // node module
 var email = require('emailjs');             // external module
 var pad = require('pad');                   // external module
 var fs = require('fs');                     // node module
+
+// Include custom nodejs modules
+var webserverHTTPS = require('./webserver/https.js');
 
 // Various variable definitions.
 var arr;
@@ -33,7 +36,7 @@ var STATE_CLOSED = 'Closed';                // Door closed message.
 var STATE_ERROR = 'ERROR';                  // Error message.
 
 // FillMeIn
-var HTTPS_SERVER_PORT = 3000; // The port you want the webserver to listen on
+//var HTTPS_SERVER_PORT = 3000; // The port you want the webserver to listen on
                               //   If you do not already have something using port 443,
                               //   you can just use 443 since that is the default port for SSL
 
@@ -327,13 +330,9 @@ function fileRequest (response, fileName, notFound) {
 var requestHeaders;
 var isAuthorized = false;
 
-var options = {
-  key: fs.readFileSync('./key.pem', 'utf8'),
-  cert: fs.readFileSync('./server.crt', 'utf8')
-};
+
+//var webhttps = new webserverHTTPS();
 
 
-https.js;
 
 
-console.log('Server started.');
