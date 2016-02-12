@@ -156,9 +156,10 @@ exports.currentStatusUpdate = function() {
   }
   
   console.log(consoleLog.strGetTimeStamp() + ' Door ' + currentState + '.');
+  module.exports.currentState = currentState;
 }
 
 
 // List all variables that I need to export
-module.exports.currentState = currentState;
+//module.exports.currentState = currentState;
 module.exports.lastState = lastState;
