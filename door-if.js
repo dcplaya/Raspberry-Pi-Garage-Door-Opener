@@ -23,17 +23,9 @@ var fs = require('fs');                     // node module
 // Include custom nodejs modules
 var webserverHTTPS = require('./webserver/https.js');
 var consoleLog = require('./ConsoleLogging/consoleLog.js');
+var doorIO = require('./IO/door.js');
 // Various variable definitions.
 var arr;
-
-var STATE_UNKNOWN = 'Unknown';               // When door up sensor and door down sensor are closed 
-                                             //   at the same time.  Should never happen.
-var STATE_OPENING = 'Opening';              // Door is opening message.
-var STATE_CLOSING = 'Closing';              // Door closing message.
-var STATE_IN_TRANSITION = 'In Transition';  // Door in between open and closed.
-var STATE_OPEN = 'Open';                    // Door open message.
-var STATE_CLOSED = 'Closed';                // Door closed message.
-var STATE_ERROR = 'ERROR';                  // Error message.
 
 // FillMeIn
 //var HTTPS_SERVER_PORT = 3000; // The port you want the webserver to listen on
@@ -139,7 +131,7 @@ var doorDownIf = gpio.export(27, {
     doorDownIf.on("change", function(value) {
       // value will report either 1 or 0 (number) when the value changes
       if (inDoorDownChange == false) {
-        lastStatusUpdate();
+        doorIO.lastStatusUpdate();
       }
       doorDown = value / 1;
       if (inDoorDownChange == false) {   // During state change, state will "bounce"
@@ -148,7 +140,7 @@ var doorDownIf = gpio.export(27, {
         inDoorDownChange = true;
         setTimeout(function() {  // Debounce
           inDoorDownChange = false;
-          currentStatusUpdate();
+          doorIO.currentStatusUpdate();
         }, msDebounce);
       }
     });
@@ -165,14 +157,14 @@ var doorUpIf = gpio.export(22, {
     doorUpIf.on("change", function(value) {
       // value will report either 1 or 0 (number) when the value changes
       if (inDoorUpChange == false) {
-        lastStatusUpdate();
+        doorIO.lastStatusUpdate();
       }
       doorUp = value / 1;
       if (inDoorUpChange == false) {
         inDoorUpChange = true;
         setTimeout(function() {  // Debounce
           inDoorUpChange = false;
-          currentStatusUpdate();
+          doorIO.currentStatusUpdate();
         }, msDebounce);
       }
     });
@@ -191,7 +183,7 @@ var doorActuator = gpio.export(17, {
    ready: function() {
       doorActuator.set(0);                // sets pin to low (can also call gpio4.reset()
       console.log(consoleLog.strGetTimeStamp() + ' Door actuator is off.');
-      currentStatusUpdate();
+      doorIO.currentStatusUpdate();
    }
 });
 
