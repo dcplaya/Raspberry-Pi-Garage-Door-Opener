@@ -22,7 +22,7 @@ var fs = require('fs');                     // node module
 
 // Include custom nodejs modules
 var webserverHTTPS = require('./webserver/https.js');
-
+var consoleLog = require('./ConsoleLogging/consoleLog.js');
 // Various variable definitions.
 var arr;
 
@@ -92,85 +92,9 @@ var inDoorUpChange = false;
 var msDebounce = 400;  // number of ms to allow for debounce
 
 var __cwd = __dirname;
-console.log(strGetTimeStamp() + ' Current working directory is: ' + __cwd);
+console.log(consoleLog.strGetTimeStamp() + ' Current working directory is: ' + __cwd);
 
-// Function used for console logging
-function getTimeStamp_us() {
-  var dt = new Date();
-  
-  var year = dt.getFullYear();
-  var mon = pad(2, dt.getMonth() + 1, '0');
-  var day = pad(2, dt.getDate(), '0');
-  
-  var hour = pad(2, dt.getHours(), '0');
-  var min = pad(2, dt.getMinutes(), '0');
-  var sec = pad(2, dt.getSeconds(), '0');
-  
-  var usec = getMilliseconds();
-  return(year + mon + day + hour + min + sec + usec);
-}
 
-// Function used for console logging
-function getTimeStamp() {
-  var dt = new Date();
-  
-  var year = dt.getFullYear();
-  var mon = pad(2, dt.getMonth() + 1, '0');
-  var day = pad(2, dt.getDate(), '0');
-  
-  var hour = pad(2, dt.getHours(), '0');
-  var min = pad(2, dt.getMinutes(), '0');
-  var sec = pad(2, dt.getSeconds(), '0');
-  
-  return(year + mon + day + hour + min + sec);
-}
-
-// Function used for console logging
-function strGetTimeStamp() {
-  var dt = new Date();
-  
-  var year = dt.getFullYear();
-  var mon = pad(2, dt.getMonth() + 1, '0');
-  var day = pad(2, dt.getDate(), '0');
-  
-  var hour = pad(2, dt.getHours(), '0');
-  var min = pad(2, dt.getMinutes(), '0');
-  var sec = pad(2, dt.getSeconds(), '0');
-  
-  return('[' + year + '-' + mon + '-' + day + ' ' + hour + ':' + min + ':' + sec + ']');
-}
-
-// Last door status function
-function lastStatusUpdate() {
-  if ((doorDown == 0) && (doorUp == 1))
-    lastState = STATE_CLOSED;
-  else if ((doorDown == 1) && (doorUp == 0))
-    lastState = STATE_OPEN;
-  else if ((doorDown == 1) && (doorUp == 1))
-    lastState = STATE_IN_TRANSITION;
-  else
-    lastState = STATE_UNKNOWN;
-}
-
-// Current door status function
-function currentStatusUpdate() {
-  if ((doorDown == 0) && (doorUp == 1)) {
-    currentState = STATE_CLOSED;
-  } else if ((doorDown == 1) && (doorUp == 0)) {
-    currentState = STATE_OPEN;
-  } else if ((doorDown == 1) && (doorUp == 1)) {
-    if ((lastState == STATE_CLOSED)) {
-      currentState = STATE_OPENING;
-      sendEmail();
-    } else if ((lastState == STATE_OPEN)) {
-      currentState = STATE_CLOSING;
-    }
-  } else {
-    currentState = STATE_UNKNOWN;
-  }
-  
-  console.log(strGetTimeStamp() + ' Door ' + currentState + '.');
-}
 
 // Main email function
 function sendEmail () {
@@ -195,7 +119,7 @@ function sendEmail () {
       {data:EMAIL_BODY_DOOR_OPENING + '<br />' + EMAIL_HTML_DOOR_OPENING, alternative:true}
     ]
   };
-  server.send(message, function(err, message) { console.log(strGetTimeStamp() + ' ' + (err || 'Email sent.')); });
+  server.send(message, function(err, message) { console.log(consoleLog.strGetTimeStamp() + ' ' + (err || 'Email sent.')); });
 }
 
 // The following three function blocks are where the IO pins are selected, 
@@ -266,7 +190,7 @@ var doorActuator = gpio.export(17, {
    // function to guarantee everything will get fired properly
    ready: function() {
       doorActuator.set(0);                // sets pin to low (can also call gpio4.reset()
-      console.log(strGetTimeStamp() + ' Door actuator is off.');
+      console.log(consoleLog.strGetTimeStamp() + ' Door actuator is off.');
       currentStatusUpdate();
    }
 });
@@ -279,12 +203,12 @@ var doorActuator = gpio.export(17, {
 //       TO THE CONTROLLING CURCUITS.
 function operateDoor() {
   doorActuator.set();  // Activate door relay, Close switch
-  console.log(strGetTimeStamp() + ' Relay closed.');
+  console.log(consoleLog.strGetTimeStamp() + ' Relay closed.');
   setTimeout(function() {  // Leave on for .5 seconds
-    console.log(strGetTimeStamp() + ' Relay open.');
+    console.log(consoleLog.strGetTimeStamp() + ' Relay open.');
     doorActuator.set(0);  // Shut door relay off, Open switch
   }, 500);
-  console.log(strGetTimeStamp() + ' Door actuator has been toggled.');
+  console.log(consoleLog.strGetTimeStamp() + ' Door actuator has been toggled.');
   //currentStatusUpdate();
 }
 
