@@ -21,10 +21,13 @@ var fs = require('fs');                     // node module
 
 // Include custom nodejs modules
 var consoleLog = require('./ConsoleLogging/consoleLog.js');
-var doorIO = require('./IO/door.js');
 // Various variable definitions.
 var arr;
 var url = '';
+
+//************************** Door IO Stuff *************************
+var doorIO = require('./IO/door.js');
+var currentState = doorIO.currentState;
 
 //*********************** Webserver variables**********************
 var https = require('https');               // node module
@@ -216,8 +219,7 @@ https.createServer(options, function (request, response) {
     response.writeHead(200, {'Content-Type': 'application/json',
       'WWW-Authenticate': 'Basic realm="localhost"'});
     console.log(consoleLog.strGetTimeStamp() + ' Door status requested...');
-    //response.write(doorIO.currentState);
-    response.write('Unknown');
+    response.write(currentState);
     response.end();
   }
   else if (fileName == 'operateDoor.json') {
