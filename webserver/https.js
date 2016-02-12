@@ -37,7 +37,7 @@ https.createServer(options, function (request, response) {
       fileRequest(response, fileName);
       return;
     }
-    console.log(strGetTimeStamp() + ' User @ ' + request.connection.remoteAddress + ' has been authorized.');
+    //console.log(strGetTimeStamp() + ' User @ ' + request.connection.remoteAddress + ' has been authorized.');
   }
   
   if(request.method === "POST") {
