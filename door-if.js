@@ -63,7 +63,7 @@ var EXTERNAL_WEBSITE_ADDRESS = '';  // Example: 'http://My.Home.Router:8080', Yo
                                     //   be updated regularly.  You could use a dynamic DNS provider like http://dyn.com
 
 // FillMeIn
-var BASIC_AUTH_CODED_STRING = 'VHJleDRCb2I=';  // This is to set your password for the site
+var BASIC_AUTH_CODED_STRING = 'YWRtaW46cGFzc3dvcmQ=';  // This is to set your password for the site
   // With the code above, you would use the following username and password to login to this server:
   //   username: admin
   //   password: password
