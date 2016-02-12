@@ -341,7 +341,7 @@ https.createServer(options, function (request, response) {
   console.log(strGetTimeStamp() + ' Page, ' + url + ' Requested from, ' + request.connection.remoteAddress);
   var postData = [];
   var getData = [];
-  /*if (!isAuthorized) {
+  if (isAuthorized) {
     console.log(requestHeaders['authorization']);
     if (requestHeaders['authorization'] != 'Basic ' + BASIC_AUTH_CODED_STRING) { 
       response.writeHead(401, {'Content-Type': 'text/html',
@@ -349,7 +349,7 @@ https.createServer(options, function (request, response) {
       var fileName = __cwd + "/status/401.html";
       fileRequest(response, fileName);
       return;
-    }*/
+    }
     console.log(strGetTimeStamp() + ' User @ ' + request.connection.remoteAddress + ' has been authorized.');
   }
   
