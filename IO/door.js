@@ -2,7 +2,6 @@
 
 // Define exports variable so I can export and use these in other files
 var exports = module.exports = {};
-exports.currentState = currentState;
 
 //Required modules
 var gpio = require('gpio');                 // external module
@@ -158,3 +157,5 @@ exports.currentStatusUpdate = function() {
   
   console.log(consoleLog.strGetTimeStamp() + ' Door ' + currentState + '.');
 }
+
+module.exports.currentState = currentState;
