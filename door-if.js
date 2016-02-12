@@ -94,8 +94,6 @@ var msDebounce = 400;  // number of ms to allow for debounce
 var __cwd = __dirname;
 console.log(strGetTimeStamp() + ' Current working directory is: ' + __cwd);
 
-var docRoot = '/docRoot/';
-
 // Function used for console logging
 function getTimeStamp_us() {
   var dt = new Date();

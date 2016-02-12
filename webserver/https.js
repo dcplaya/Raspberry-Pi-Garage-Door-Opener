@@ -10,6 +10,7 @@ var HTTPS_SERVER_PORT = 3000; // The port you want the webserver to listen on
                               //   you can just use 443 since that is the default port for SSL
 
 var __cwd = __dirname;
+var docRoot = '/docRoot/';
 
 
 // This is the main file request function for the HTTP server.
