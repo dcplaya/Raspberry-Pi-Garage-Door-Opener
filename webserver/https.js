@@ -26,7 +26,7 @@ var options = {
 https.createServer(options, function (request, response) {
   request.setEncoding('utf8');
   requestHeaders = request.headers;
-  console.log(strGetTimeStamp() + ' Page, ' + url + ' Requested from, ' + request.connection.remoteAddress);
+  //console.log(strGetTimeStamp() + ' Page, ' + url + ' Requested from, ' + request.connection.remoteAddress);
   var postData = [];
   var getData = [];
   if (isAuthorized) {
@@ -71,12 +71,12 @@ https.createServer(options, function (request, response) {
     fileName = 'mainDoor.html';
   }
 
-  console.log(strGetTimeStamp() + ' ' + fileName + ' requested.');
+  //console.log(strGetTimeStamp() + ' ' + fileName + ' requested.');
   
   if (fileName == 'getDoor.json') { 
     // application/json 
     response.writeHead(200, {'Content-Type': 'application/json'});
-    console.log(strGetTimeStamp() + ' Door status requested...');
+    //console.log(strGetTimeStamp() + ' Door status requested...');
     response.write(currentState);
     response.end();
   }
