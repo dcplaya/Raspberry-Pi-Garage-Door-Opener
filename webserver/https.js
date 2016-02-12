@@ -16,22 +16,22 @@ var docRoot = '/docRoot/';
 // This is the main file request function for the HTTP server.
 function fileRequest (response, fileName, notFound) {
   notFound = typeof notFound !== 'undefined' ? notFound : false;
-  console.log(strGetTimeStamp() + ' Request file, ' + fileName);
+  ///console.log(strGetTimeStamp() + ' Request file, ' + fileName);
   var data = "";
   
   fs.exists(fileName, function(exists) {
     if (exists) {
-      console.log(strGetTimeStamp() + ' File: ' + fileName + ' exists.');
+      ///console.log(strGetTimeStamp() + ' File: ' + fileName + ' exists.');
       fs.stat(fileName, function(error, stats) {
-        console.log(strGetTimeStamp() + ' File: ' + fileName + ', Size: ' + stats.size);
+        ///console.log(strGetTimeStamp() + ' File: ' + fileName + ', Size: ' + stats.size);
         fs.open(fileName, "r", function(error, fd) {
-          console.log(strGetTimeStamp() + ' File: ' + fileName + ', Open for reading.');
+          ///console.log(strGetTimeStamp() + ' File: ' + fileName + ', Open for reading.');
           var buffer = new Buffer(stats.size);
           fs.read(fd, buffer, 0, buffer.length, null, function(error, bytesRead, buffer) {
             data = buffer.toString("utf8", 0, buffer.length);
             fs.close(fd);
             //if (bytesRead == stats.size) {
-              console.log(strGetTimeStamp() + ' File: ' + fileName + ', ' + bytesRead + ' of ' + stats.size + ' Bytes Read.');
+              ///console.log(strGetTimeStamp() + ' File: ' + fileName + ', ' + bytesRead + ' of ' + stats.size + ' Bytes Read.');
               response.write(data);
               response.end();
           });
@@ -39,11 +39,11 @@ function fileRequest (response, fileName, notFound) {
       });
     }
     else if (notFound == false) {
-      console.log(strGetTimeStamp() + ' File not found');
+      ///console.log(strGetTimeStamp() + ' File not found');
       fileRequest (response, __cwd + '/status/404.html', true);
     }
     else {
-      console.log(strGetTimeStamp() + ' Requested file not found. Additionally, error file was not found.');
+      ///console.log(strGetTimeStamp() + ' Requested file not found. Additionally, error file was not found.');
       response.write('Internal Error.');
       response.end();
     }
