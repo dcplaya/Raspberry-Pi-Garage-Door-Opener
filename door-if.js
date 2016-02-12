@@ -220,8 +220,8 @@ https.createServer(options, function (request, response) {
     response.writeHead(200, {'Content-Type': 'application/json',
       'WWW-Authenticate': 'Basic realm="localhost"'});
     doorIO.currentStatusUpdate();
-    console.log(consoleLog.strGetTimeStamp() + ' Door status requested...' + 'Current Door Status = ' + doorIO.currentState);
-    //response.write(currentState);
+    console.log(consoleLog.strGetTimeStamp() + ' Door status requested...' + 'Current Door Status = ' + currentState);
+    response.write(String(currentState));
     response.end();
   }
   else if (fileName == 'operateDoor.json') {
