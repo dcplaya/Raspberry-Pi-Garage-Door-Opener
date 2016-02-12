@@ -25,7 +25,7 @@ var doorUp = 1;
 var doorDown = 0;
 var strDoorUp = '';
 var strDoorDown = '';
-var url = '';
+
 
 var inDoorDownChange = false;
 var inDoorUpChange = false;

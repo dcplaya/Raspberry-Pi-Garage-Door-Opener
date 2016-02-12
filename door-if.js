@@ -24,6 +24,7 @@ var consoleLog = require('./ConsoleLogging/consoleLog.js');
 var doorIO = require('./IO/door.js');
 // Various variable definitions.
 var arr;
+var url = '';
 
 //*********************** Webserver variables**********************
 var https = require('https');               // node module
