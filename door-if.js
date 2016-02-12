@@ -216,7 +216,7 @@ https.createServer(options, function (request, response) {
     response.writeHead(200, {'Content-Type': 'application/json',
       'WWW-Authenticate': 'Basic realm="localhost"'});
     console.log(consoleLog.strGetTimeStamp() + ' Door status requested...');
-    response.write(doorIO.currentState);
+    response.write(doorIO.currentState.toString());
     response.end();
   }
   else if (fileName == 'operateDoor.json') {
