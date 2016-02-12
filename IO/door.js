@@ -50,7 +50,7 @@ var doorDownIf = gpio.export(27, {
     doorDownIf.on("change", function(value) {
       // value will report either 1 or 0 (number) when the value changes
       if (inDoorDownChange == false) {
-        lastStatusUpdate();
+        exports.lastStatusUpdate();
       }
       doorDown = value / 1;
       if (inDoorDownChange == false) {   // During state change, state will "bounce"
@@ -59,7 +59,7 @@ var doorDownIf = gpio.export(27, {
         inDoorDownChange = true;
         setTimeout(function() {  // Debounce
           inDoorDownChange = false;
-          currentStatusUpdate();
+          exports.currentStatusUpdate();
         }, msDebounce);
       }
     });
@@ -76,14 +76,14 @@ var doorUpIf = gpio.export(22, {
     doorUpIf.on("change", function(value) {
       // value will report either 1 or 0 (number) when the value changes
       if (inDoorUpChange == false) {
-        lastStatusUpdate();
+        exports.lastStatusUpdate();
       }
       doorUp = value / 1;
       if (inDoorUpChange == false) {
         inDoorUpChange = true;
         setTimeout(function() {  // Debounce
           inDoorUpChange = false;
-          currentStatusUpdate();
+          exports.currentStatusUpdate();
         }, msDebounce);
       }
     });
@@ -102,7 +102,7 @@ var doorActuator = gpio.export(17, {
    ready: function() {
       doorActuator.set(0);                // sets pin to low (can also call gpio4.reset()
       console.log(consoleLog.strGetTimeStamp() + ' Door actuator is off.');
-      currentStatusUpdate();
+      exports.currentStatusUpdate();
    }
 });
 
@@ -147,7 +147,7 @@ exports.currentStatusUpdate = function() {
   } else if ((doorDown == 1) && (doorUp == 1)) {
     if ((lastState == STATE_CLOSED)) {
       currentState = STATE_OPENING;
-      sendEmail();
+      //sendEmail();                    Commented out temporaily
     } else if ((lastState == STATE_OPEN)) {
       currentState = STATE_CLOSING;
     }
@@ -155,5 +155,5 @@ exports.currentStatusUpdate = function() {
     currentState = STATE_UNKNOWN;
   }
   
-  console.log(strGetTimeStamp() + ' Door ' + currentState + '.');
+  console.log(consoleLog.strGetTimeStamp() + ' Door ' + currentState + '.');
 }
