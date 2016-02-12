@@ -50,7 +50,7 @@ var doorDownIf = gpio.export(27, {
     doorDownIf.on("change", function(value) {
       // value will report either 1 or 0 (number) when the value changes
       if (inDoorDownChange == false) {
-        doorIO.lastStatusUpdate();
+        lastStatusUpdate();
       }
       doorDown = value / 1;
       if (inDoorDownChange == false) {   // During state change, state will "bounce"
@@ -59,7 +59,7 @@ var doorDownIf = gpio.export(27, {
         inDoorDownChange = true;
         setTimeout(function() {  // Debounce
           inDoorDownChange = false;
-          doorIO.currentStatusUpdate();
+          currentStatusUpdate();
         }, msDebounce);
       }
     });
@@ -76,14 +76,14 @@ var doorUpIf = gpio.export(22, {
     doorUpIf.on("change", function(value) {
       // value will report either 1 or 0 (number) when the value changes
       if (inDoorUpChange == false) {
-        doorIO.lastStatusUpdate();
+        lastStatusUpdate();
       }
       doorUp = value / 1;
       if (inDoorUpChange == false) {
         inDoorUpChange = true;
         setTimeout(function() {  // Debounce
           inDoorUpChange = false;
-          doorIO.currentStatusUpdate();
+          currentStatusUpdate();
         }, msDebounce);
       }
     });
@@ -102,7 +102,7 @@ var doorActuator = gpio.export(17, {
    ready: function() {
       doorActuator.set(0);                // sets pin to low (can also call gpio4.reset()
       console.log(consoleLog.strGetTimeStamp() + ' Door actuator is off.');
-      doorIO.currentStatusUpdate();
+      currentStatusUpdate();
    }
 });
 
@@ -112,7 +112,8 @@ var doorActuator = gpio.export(17, {
 //     YOU WILL NEED TO USE A BUFFER CIRCUIT TO DRIVE THE RELAY.
 //     ALSO: ALWAYS USE A DIODE ACCROSS THE RELAY TO PREVENT DAMAGE
 //       TO THE CONTROLLING CURCUITS.
-function operateDoor() {
+exports.operateDoor = function() {
+//function operateDoor() {
   doorActuator.set();  // Activate door relay, Close switch
   console.log(consoleLog.strGetTimeStamp() + ' Relay closed.');
   setTimeout(function() {  // Leave on for .5 seconds
