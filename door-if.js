@@ -242,6 +242,6 @@ https.createServer(options, function (request, response) {
 }).listen(HTTPS_SERVER_PORT);
 
 console.log('Server started.');
-
+console.log(currentState);
 
 
