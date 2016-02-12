@@ -219,6 +219,7 @@ https.createServer(options, function (request, response) {
     // application/json 
     response.writeHead(200, {'Content-Type': 'application/json',
       'WWW-Authenticate': 'Basic realm="localhost"'});
+    doorIO.currentStatusUpdate();
     console.log(consoleLog.strGetTimeStamp() + ' Door status requested...' + 'Current Door Status = ' + doorIO.currentState);
     response.write(currentState);
     response.end();
