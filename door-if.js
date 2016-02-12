@@ -15,7 +15,7 @@
 var gpio = require('gpio');                 // external module
 var os = require('os');                     // node module
 //var https = require('https');               // node module
-//var querystring = require('querystring');   // node module
+var querystring = require('querystring');   // node module
 var email = require('emailjs');             // external module
 var pad = require('pad');                   // external module
 var fs = require('fs');                     // node module
