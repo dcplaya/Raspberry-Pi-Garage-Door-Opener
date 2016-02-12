@@ -28,6 +28,7 @@ var url = '';
 //************************** Door IO Stuff *************************
 var doorIO = require('./IO/door.js');
 var currentState = doorIO.currentState;
+var lastState = doorIO.lastState;
 
 //*********************** Webserver variables**********************
 var https = require('https');               // node module
@@ -241,7 +242,6 @@ https.createServer(options, function (request, response) {
 }).listen(HTTPS_SERVER_PORT);
 
 console.log('Server started.');
-console.log(currentState);
 
 
 
