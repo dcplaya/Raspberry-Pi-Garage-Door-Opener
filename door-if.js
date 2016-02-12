@@ -20,16 +20,28 @@ var pad = require('pad');                   // external module
 var fs = require('fs');                     // node module
 
 // Include custom nodejs modules
-var webserverHTTPS = require('./webserver/https.js');
 var consoleLog = require('./ConsoleLogging/consoleLog.js');
 var doorIO = require('./IO/door.js');
 // Various variable definitions.
 var arr;
 
-// FillMeIn
-//var HTTPS_SERVER_PORT = 3000; // The port you want the webserver to listen on
+//*********************** Webserver variables**********************
+var https = require('https');               // node module
+var fs = require('fs');                     // node module
+var querystring = require('querystring');   // node module
+var os = require('os');                     // node module
+var consoleLog = require('./ConsoleLogging/consoleLog.js');
+
+var HTTPS_SERVER_PORT = 3000; // The port you want the webserver to listen on
                               //   If you do not already have something using port 443,
                               //   you can just use 443 since that is the default port for SSL
+
+var __cwd = __dirname;
+var docRoot = '/docRoot/';
+
+var requestHeaders;
+var isAuthorized = false;
+//************************* End Webserver variables************************
 
 // set to false to disable the email function, true to enable
 var SEND_EMAILS = false;
@@ -100,12 +112,131 @@ function sendEmail () {
 }
 
 
+//////// WEBSERVER Code //////////////////////
+// This is the main file request function for the HTTP server.
+function fileRequest (response, fileName, notFound) {
+  notFound = typeof notFound !== 'undefined' ? notFound : false;
+  console.log(consoleLog.strGetTimeStamp() + ' Request file, ' + fileName);
+  var data = "";
+  
+  fs.exists(fileName, function(exists) {
+    if (exists) {
+      console.log(consoleLog.strGetTimeStamp() + ' File: ' + fileName + ' exists.');
+      fs.stat(fileName, function(error, stats) {
+        console.log(consoleLog.strGetTimeStamp() + ' File: ' + fileName + ', Size: ' + stats.size);
+        fs.open(fileName, "r", function(error, fd) {
+          console.log(consoleLog.strGetTimeStamp() + ' File: ' + fileName + ', Open for reading.');
+          var buffer = new Buffer(stats.size);
+          fs.read(fd, buffer, 0, buffer.length, null, function(error, bytesRead, buffer) {
+            data = buffer.toString("utf8", 0, buffer.length);
+            fs.close(fd);
+            //if (bytesRead == stats.size) {
+              console.log(consoleLog.strGetTimeStamp() + ' File: ' + fileName + ', ' + bytesRead + ' of ' + stats.size + ' Bytes Read.');
+              response.write(data);
+              response.end();
+          });
+        });
+      });
+    }
+    else if (notFound == false) {
+      console.log(consoleLog.strGetTimeStamp() + ' File not found');
+      fileRequest (response, __cwd + '/status/404.html', true);
+    }
+    else {
+      console.log(consoleLog.strGetTimeStamp() + ' Requested file not found. Additionally, error file was not found.');
+      response.write('Internal Error.');
+      response.end();
+    }
+  });
+}
 
-var requestHeaders;
-var isAuthorized = false;
+// Options for the HTTPS server. 
+var options = {
+  key: fs.readFileSync('./key.pem', 'utf8'),
+  cert: fs.readFileSync('./server.crt', 'utf8')
+};
 
+// This is the main HTTPS server function and entrypoint to this app.
+//   It listens on the specified port for incoming requests and responds 
+//   according to the type of request being made.
+https.createServer(options, function (request, response) {
+  request.setEncoding('utf8');
+  requestHeaders = request.headers;
+  console.log(consoleLog.strGetTimeStamp() + ' Page, ' + url + ' Requested from, ' + request.connection.remoteAddress);
+  var postData = [];
+  var getData = [];
+  if (isAuthorized) {
+    //console.log(requestHeaders['authorization']);
+    if (requestHeaders['authorization'] != 'Basic ' + BASIC_AUTH_CODED_STRING) { // 
+      response.writeHead(401, {'Content-Type': 'text/html',
+        'WWW-Authenticate': 'Basic realm="localhost"'});
+      var fileName = __cwd + "/status/401.html";
+      fileRequest(response, fileName);
+      return;
+    }
+    console.log(consoleLog.strGetTimeStamp() + ' User @ ' + request.connection.remoteAddress + ' has been authorized.');
+  }
+  
+  if(request.method === "POST") {
+    var data = "";
 
-//var webhttps = new webserverHTTPS();
+    request.on("data", function(chunk) {
+      data += chunk;
+    });
+
+    request.on("end", function() {
+      console.log(postData);
+      
+      console.log("raw: " + decodeURIComponent(data));
+      var json = querystring.parse(data);
+
+      console.log("json: " + json);
+    });
+  }
+
+  url = request.url;
+  arr = url.split('/');
+  fileName = arr[arr.length-1]; //.toLowerCase();
+  arr = fileName.split('?');
+  fileName = arr[0];
+  arr = arr.splice(0, 1);
+  getArgs = arr.join();
+  
+  if ((fileName == '/') || (fileName == '')) {
+    response.writeHead(200, {'Content-Type': 'text/html',
+      'WWW-Authenticate': 'Basic realm="localhost"'});
+    fileName = 'mainDoor.html';
+  }
+
+  console.log(consoleLog.strGetTimeStamp() + ' ' + fileName + ' requested.');
+  
+  if (fileName == 'getDoor.json') { 
+    // application/json 
+    response.writeHead(200, {'Content-Type': 'application/json',
+      'WWW-Authenticate': 'Basic realm="localhost"'});
+    console.log(consoleLog.strGetTimeStamp() + ' Door status requested...');
+    response.write(doorIO.currentState);
+    response.end();
+  }
+  else if (fileName == 'operateDoor.json') {
+    response.writeHead(200, {'Content-Type': 'application/json',
+      'WWW-Authenticate': 'Basic realm="localhost"'});
+    doorIO.operateDoor();
+    response.end();
+  }
+  else if (fileName.split('.')[fileName.split('.').length-1].toLowerCase() == 'css') {
+    response.writeHead(200, {'Content-Type': 'text/css',
+      'WWW-Authenticate': 'Basic realm="localhost"'});
+    fileRequest(response, __cwd + docRoot + fileName);
+  }
+  else {
+    response.writeHead(200, {'Content-Type': 'text/html',
+      'WWW-Authenticate': 'Basic realm="localhost"'});
+    fileRequest(response, __cwd + docRoot + fileName);
+  }
+}).listen(HTTPS_SERVER_PORT);
+
+console.log('Server started.');
 
 
 
