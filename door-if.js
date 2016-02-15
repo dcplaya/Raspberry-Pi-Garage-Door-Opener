@@ -20,7 +20,9 @@ var fs = require('fs');                     // node module
 
 // Include custom nodejs modules
 var consoleLog = require('./ConsoleLogging/consoleLog.js');
-var config = require('./config.js');
+var config = require('./config.js');                          //write the config file as a JSON format
+//var readConfig;
+//readConfig = JSON.parse(fs.readFileSync('./config.json'));
 // Various variable definitions.
 var arr;
 var url = '';
@@ -53,13 +55,13 @@ var isAuthorized = false;
 var SEND_EMAILS = false;
 
 // FillMeIn
-var EMAIL_HOST = ''; // Enter your SMTP Server Here, example: 'mail.yahoo.com'
+var EMAIL_HOST = config.get('email.host'); // Enter your SMTP Server Here, example: 'mail.yahoo.com'
 
 // FillMeIn
-var EMAIL_FROM = ''; // Enter your from email address, example: 'John Doe <johndoe@yahoo.com>'
+var EMAIL_FROM = config.get('email.from); // Enter your from email address, example: 'John Doe <johndoe@yahoo.com>'
 
 // FillMeIn
-var EMAIL_TO = config.emailTo; // Enter the recipient(s) here, example: 'John Doe <johndoe@yahoo.com>, Jane Doe <janedoe@yahoo.com>'
+var EMAIL_TO = config.get('email.to'); // Enter the recipient(s) here, example: 'John Doe <johndoe@yahoo.com>, Jane Doe <janedoe@yahoo.com>'
 
 // FillMeIn
 var EXTERNAL_WEBSITE_ADDRESS = '';  // Example: 'http://My.Home.Router:8080', Your router must be configured correctly for this to work
@@ -212,11 +214,6 @@ https.createServer(options, function (request, response) {
     response.writeHead(200, {'Content-Type': 'text/html',
       'WWW-Authenticate': 'Basic realm="localhost"'});
     fileName = 'mainDoor.html';
-    var http_username = config.http_username;
-    var http_password = config.http_password;
-    var emailTo = config.emailTo;
-    var renderedHtml = ejs.render(content, {emailTo: emailTo});
-    response.end(renderedHtml);
   }
 
   console.log(consoleLog.strGetTimeStamp() + ' ' + fileName + ' requested.');
@@ -249,6 +246,7 @@ https.createServer(options, function (request, response) {
 }).listen(HTTPS_SERVER_PORT);
 
 console.log('Server started.');
+//console.log(readConfig.emailTo);
 
 
 
