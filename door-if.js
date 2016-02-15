@@ -235,12 +235,6 @@ https.createServer(options, function (request, response) {
       'WWW-Authenticate': 'Basic realm="localhost"'});
     fileRequest(response, __cwd + docRoot + fileName);
   }
-  else if (fileName == 'settingsPage.json') {
-    response.writeHead(200, {'Conent-Type': 'text/css',
-      'WWW-Authenticate': 'Basic realm="localhost"'});
-    console.log(consoleLog.strGetTimeStamp() + 'Settings Page Requested');
-    fileName = 'settingsPage.html';
-  }
   else {
     response.writeHead(200, {'Content-Type': 'text/html',
       'WWW-Authenticate': 'Basic realm="localhost"'});
