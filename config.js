@@ -6,4 +6,4 @@ config.http_username = ''
 config.http_password = ''
 //[IO Pins]
 //[Email Settings]
-config.emailTo = ''
+config.emailTo = 'fake@fake.com'
