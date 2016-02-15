@@ -215,6 +215,8 @@ https.createServer(options, function (request, response) {
     var http_username = config.http_username;
     var http_password = config.http_password;
     var emailTo = config.emailTo;
+    var renderedHtml = ejs.reder(content, {emailTo: emailTo});
+    res.end(renderedHtml);
   }
 
   console.log(consoleLog.strGetTimeStamp() + ' ' + fileName + ' requested.');
