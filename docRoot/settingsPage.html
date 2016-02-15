@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <head>
+<!-- require the config.js file to show current values to user-->
+<script type="text/javascript" src="./config.js" async>
+   config.http_username; 
+    
+</script>
+<!-- End javascript-->
 <title>Settings</title>
 <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -17,7 +23,8 @@
     <label for="http_username">HTTP Username</label>
     <div class="row">
         <div class="col-md-4">
-            <input type="text" class="form-control auth-settings" id="http_username" name="http_username" value="${config['http_username']}" size="30">
+            <input type="text" class="form-control auth-settings" id="http_username" name="http_username" value="temp" size="30">
+            <%= emailTo %>
         </div>
     </div>
     <p class="help-block">Username for web server authentication. Leave empty to disable.</p>
@@ -26,7 +33,7 @@
     <label for="http_password">HTTP Password</label>
     <div class="row">
         <div class="col-md-4">
-            <input type="password" class="form-control auth-settings" id="http_password" name="http_password" value="${config['http_password']}" size="30">
+            <input type="password" class="form-control auth-settings" id="http_password" name="http_password" value="${config['config.http_password']}" size="30">
         </div>
     </div>
     <p class="help-block">Password for web server authentication. Leave empty to disable.</p>
