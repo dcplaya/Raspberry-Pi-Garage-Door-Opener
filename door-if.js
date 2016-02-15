@@ -35,6 +35,7 @@ var https = require('https');               // node module
 var fs = require('fs');                     // node module
 var querystring = require('querystring');   // node module
 var os = require('os');                     // node module
+var ejs = require('ejs');                   // Used to pass vars to HTML pages
 var consoleLog = require('./ConsoleLogging/consoleLog.js');
 
 var HTTPS_SERVER_PORT = 3000; // The port you want the webserver to listen on
@@ -211,6 +212,9 @@ https.createServer(options, function (request, response) {
     response.writeHead(200, {'Content-Type': 'text/html',
       'WWW-Authenticate': 'Basic realm="localhost"'});
     fileName = 'mainDoor.html';
+    var http_username = config.http_username;
+    var http_password = config.http_password;
+    var emailTo = config.emailTo;
   }
 
   console.log(consoleLog.strGetTimeStamp() + ' ' + fileName + ' requested.');
