@@ -13,7 +13,6 @@
 
 // Include other nodejs modules and external modules.
 var os = require('os');                     // node module
-//var https = require('https');               // node module
 var querystring = require('querystring');   // node module
 var email = require('emailjs');             // external module
 var pad = require('pad');                   // external module
@@ -21,6 +20,7 @@ var fs = require('fs');                     // node module
 
 // Include custom nodejs modules
 var consoleLog = require('./ConsoleLogging/consoleLog.js');
+var config = require('./config.js');
 // Various variable definitions.
 var arr;
 var url = '';
@@ -58,7 +58,7 @@ var EMAIL_HOST = ''; // Enter your SMTP Server Here, example: 'mail.yahoo.com'
 var EMAIL_FROM = ''; // Enter your from email address, example: 'John Doe <johndoe@yahoo.com>'
 
 // FillMeIn
-var EMAIL_TO = ''; // Enter the recipient(s) here, example: 'John Doe <johndoe@yahoo.com>, Jane Doe <janedoe@yahoo.com>'
+var EMAIL_TO = config.emailTo; // Enter the recipient(s) here, example: 'John Doe <johndoe@yahoo.com>, Jane Doe <janedoe@yahoo.com>'
 
 // FillMeIn
 var EXTERNAL_WEBSITE_ADDRESS = '';  // Example: 'http://My.Home.Router:8080', Your router must be configured correctly for this to work
