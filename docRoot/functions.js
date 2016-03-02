@@ -30,6 +30,9 @@ xmlhttp.onreadystatechange=function()
   }
 }
 
+// Code to pull settings from config.js, should be seperated out later on once I get it working
+document.getElementById("httpUsername").innerHTML= "This Is A Test";
+
 // FillMeIn
 var garageDoorImage = "http://YourExternalIP:YourCameraPortNumber/YourCamerasJPGFilename.jpg";
 var newImage = new Image();
