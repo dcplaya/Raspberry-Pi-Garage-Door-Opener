@@ -29,13 +29,13 @@ xmlhttp.onreadystatechange=function()
     document.getElementById("doorStatus").innerHTML=xmlhttp.responseText;
 
 // Code to pull settings from config.js, should be seperated out later on once I get it working
-xmlhttp.onreadystatechange=function()
-{
-  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-  {
-    document.getElementById("httpUsername").innerHTML= "This Is A Test";
-  }
-}
+//xmlhttp.onreadystatechange=function()
+//{
+//  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+//  {
+//    document.getElementById("httpUsername").innerHTML= "This Is A Test";
+//  }
+//}
 
 
 // FillMeIn
