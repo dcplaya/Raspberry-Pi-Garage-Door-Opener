@@ -234,9 +234,9 @@ https.createServer(options, function (request, response) {
     response.end();
   }
   else if (fileName == 'config.js') {
-    response.writeHead(200, {'Content-Type': 'application/json',
-      'WWW-Authenticate': 'Basic realm="localhost"'});
-    fileRequest(response, __cwd + / + fileName);
+    //response.writeHead(200, {'Content-Type': 'application/json',
+      //'WWW-Authenticate': 'Basic realm="localhost"'});
+    fileRequest(response, __cwd + "/" + fileName);
   }
   else if (fileName.split('.')[fileName.split('.').length-1].toLowerCase() == 'css') {
     response.writeHead(200, {'Content-Type': 'text/css',
