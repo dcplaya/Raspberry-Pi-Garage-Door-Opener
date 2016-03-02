@@ -1,0 +1,27 @@
+{
+  "name": "rpi_door",
+  "version": "1.0.0",
+  "description": "RPi Garage Door Opener",
+  "main": "door-if.js",
+  "dependencies": {
+    "convict": "^1.1.2",
+    "ejs": "^2.4.1",
+    "emailjs": "^1.0.2",
+    "gpio": "^0.2.7",
+    "pad": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcplaya/Raspberry-Pi-Garage-Door-Opener.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dcplaya/Raspberry-Pi-Garage-Door-Opener/issues"
+  },
+  "homepage": "https://github.com/dcplaya/Raspberry-Pi-Garage-Door-Opener#readme"
+}
