@@ -35,7 +35,7 @@ xmlhttp.onreadystatechange=function()
 //{
 //  if (xmlhttp.readyState==4 && xmlhttp.status==200)
 //  {
-//    document.getElementById("httpUsername").innerHTML= "This Is A Test";
+//    document.getElementById("http_username").innerHTML= "This Is A Test";
 //  }
 //}
 
