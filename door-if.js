@@ -58,7 +58,7 @@ var SEND_EMAILS = false;
 var EMAIL_HOST = config.get('email.host'); // Enter your SMTP Server Here, example: 'mail.yahoo.com'
 
 // FillMeIn
-var EMAIL_FROM = config.get('email.from); // Enter your from email address, example: 'John Doe <johndoe@yahoo.com>'
+var EMAIL_FROM = config.get('email.from'); // Enter your from email address, example: 'John Doe <johndoe@yahoo.com>'
 
 // FillMeIn
 var EMAIL_TO = config.get('email.to'); // Enter the recipient(s) here, example: 'John Doe <johndoe@yahoo.com>, Jane Doe <janedoe@yahoo.com>'
