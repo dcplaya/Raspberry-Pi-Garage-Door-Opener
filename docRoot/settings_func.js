@@ -17,7 +17,7 @@ xmlhttp.onreadystatechange=function()
     document.getElementById("http_username").innerHTML=xmlhttp.responseText;
   }
 };
-xmlhttp.open("GET", "../../config.js", true);
+xmlhttp.open("GET", "../config.js", true);
 xmlhttp.send();
 
 }
