@@ -238,6 +238,12 @@ https.createServer(options, function (request, response) {
       'WWW-Authenticate': 'Basic realm="localhost"'});
     fileRequest(response, __cwd + docRoot + fileName);
   }
+  else if (fileName == 'http_username.json') {
+    response.writeHead(200, {'Content-Type': 'text/css',
+      'WWW-Authenticate': 'Basic realm="localhost"'});
+    response.write(String("Almost There!"));
+    response.end();
+  }
   else {
     response.writeHead(200, {'Content-Type': 'text/html',
       'WWW-Authenticate': 'Basic realm="localhost"'});

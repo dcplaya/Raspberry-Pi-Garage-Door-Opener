@@ -28,10 +28,10 @@ xmlhttp.onreadystatechange=function()
 {
   if (xmlhttp.readyState==4 && xmlhttp.status==200)
   {
-    document.getElementById("http_username").innerHTML="This Is A Test";
+    document.getElementById("http_username").innerHTML=xmlhttp.responseText;
   }
 };
-xmlhttp.open("GET", "https_username" + Math.random(), true);
+xmlhttp.open("GET", "https_username.json?t" + Math.random(), true);
 xmlhttp.send();
 
 
