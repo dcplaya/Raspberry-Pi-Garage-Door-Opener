@@ -8,25 +8,26 @@ else
   xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 }
 
-var loopCount = 0;
-var opDoor = false;
-var runtime = 1 * 60; // 1 Minutes * 60 seconds
+//var loopCount = 0;
+//var opDoor = false;
+//var runtime = 1 * 60; // 1 Minutes * 60 seconds
 
-function operateDoor () {
+//function operateDoor () {
   //opDoor=confirm("Are you sure?");
-  opDoor = true;
+/*  opDoor = true;
   if (loopCount >= runtime) {
     loopCount = 0;
     restartClick();
   }
   loopCount = 0;
 }
+*/
 
 xmlhttp.onreadystatechange=function()
 {
   if (xmlhttp.readyState==4 && xmlhttp.status==200)
   {
-    document.getElementById("doorStatus").innerHTML=xmlhttp.responseText;
+    document.getElementById("http_username").innerHTML= "This Is A Test";
   }
 }
 
@@ -41,14 +42,14 @@ xmlhttp.onreadystatechange=function()
 
 
 // FillMeIn
-var garageDoorImage = "http://YourExternalIP:YourCameraPortNumber/YourCamerasJPGFilename.jpg";
-var newImage = new Image();
-newImage.src = garageDoorImage;
+//var garageDoorImage = "http://YourExternalIP:YourCameraPortNumber/YourCamerasJPGFilename.jpg";
+//var newImage = new Image();
+//newImage.src = garageDoorImage;
 
-var int;
+//var int;
 
-function restartClick () {
-  loopCount = 0;
+//function restartClick () {
+/*  loopCount = 0;
   int=self.setInterval(function(){
     if (opDoor == true) {
       xmlhttp.open("GET","operateDoor.json?t=" + Math.random(),true);
@@ -76,3 +77,4 @@ function restartClick () {
 }
 
 restartClick();
+*/
