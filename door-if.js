@@ -233,15 +233,15 @@ https.createServer(options, function (request, response) {
     doorIO.operateDoor();
     response.end();
   }
+  else if (fileName == '../config.js') {
+    response.writeHead(200, {'Content-Type': 'application/json',
+      'WWW-Authenticate': 'Basic realm="localhost"'});
+    fileRequest(response, __cwd + fileName);
+  }
   else if (fileName.split('.')[fileName.split('.').length-1].toLowerCase() == 'css') {
     response.writeHead(200, {'Content-Type': 'text/css',
       'WWW-Authenticate': 'Basic realm="localhost"'});
     fileRequest(response, __cwd  + docRoot + fileName);
-  }
-  else if (fileName == '/config.js') {
-    response.writeHead(200, {'Content-Type': 'application/json',
-      'WWW-Authenticate': 'Basic realm="localhost"'});
-    fileRequest(response, __cwd + fileName);
   }
   else {
     response.writeHead(200, {'Content-Type': 'text/html',
