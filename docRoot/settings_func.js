@@ -8,9 +8,8 @@ else
   xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 }
 
-var http = require('http');
 
-
+function loadConfig () {
 xmlhttp.onreadystatechange=function()
 {
   if (xmlhttp.readyState==4 && xmlhttp.status==200)
@@ -21,3 +20,4 @@ xmlhttp.onreadystatechange=function()
 xmlhttp.open("GET", "config.js" + Math.random(), true);
 xmlhttp.send();
 
+}
