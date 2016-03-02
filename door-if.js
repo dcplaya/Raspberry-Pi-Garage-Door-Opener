@@ -236,12 +236,12 @@ https.createServer(options, function (request, response) {
   else if (fileName.split('.')[fileName.split('.').length-1].toLowerCase() == 'css') {
     response.writeHead(200, {'Content-Type': 'text/css',
       'WWW-Authenticate': 'Basic realm="localhost"'});
-    fileRequest(response, __cwd + docRoot + fileName);
+    fileRequest(response, __cwd  + fileName);
   }
   else {
     response.writeHead(200, {'Content-Type': 'text/html',
       'WWW-Authenticate': 'Basic realm="localhost"'});
-    fileRequest(response, __cwd + docRoot + fileName);
+    fileRequest(response, __cwd  + fileName);
   }
 }).listen(HTTPS_SERVER_PORT);
 
