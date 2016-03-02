@@ -22,6 +22,7 @@ var config = convict({
       doc: "HTTP Server Admin Username",
       format: String,
       default: "admin"
+    }
   },
   email: {
     host: {
