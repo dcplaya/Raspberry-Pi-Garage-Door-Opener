@@ -17,7 +17,11 @@ var config = convict({
       doc: "port to bind",
       format: "port",
       default: 8080
-    }
+    },
+    http_username: {
+      doc: "HTTP Server Admin Username",
+      format: String,
+      default: "admin"
   },
   email: {
     host: {
