@@ -238,7 +238,7 @@ https.createServer(options, function (request, response) {
       'WWW-Authenticate': 'Basic realm="localhost"'});
     fileRequest(response, __cwd  + docRoot + fileName);
   }
-  else if (filename == 'config.js') {
+  else if (fileName == 'config.js') {
     response.writeHead(200, {'Content-Type': 'application/json',
       'WWW-Authenticate': 'Basic realm="localhost"'});
     fileRequest(response, __cwd + fileName);
