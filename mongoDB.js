@@ -9,7 +9,7 @@
 //   AND OR MODIFIED, DAMAGE TO THE USER'S PERSONAL PROPERTY COULD RESULT.
 //
 // Please post or read the accompanying documentation at:
-//   http://wp.me/p3oAnz-5
+//    http://wp.me/p3oAnz-5
 
 // Set up mongoose conneciton to mongoDB
 var mongoose = require('mongoose');
