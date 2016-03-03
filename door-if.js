@@ -17,6 +17,7 @@ var querystring = require('querystring');   // node module
 var email = require('emailjs');             // external module
 var pad = require('pad');                   // external module
 var fs = require('fs');                     // node module
+var mongo = require('mongoDB');             // MongoDB stuff
 
 // Include custom nodejs modules
 var consoleLog = require('./ConsoleLogging/consoleLog.js');
@@ -90,7 +91,6 @@ var EMAIL_BODY_DOOR_OPENING = 'Your Garage Door Is Opening...';
 
 var __cwd = __dirname;
 console.log(consoleLog.strGetTimeStamp() + ' Current working directory is: ' + __cwd);
-
 
 
 // Main email function
