@@ -158,21 +158,23 @@ exports.currentStatusUpdate = function() {
   console.log(consoleLog.strGetTimeStamp() + ' Door ' + currentState + '.');
 // Log the status change to the database
   var doorStatus = require('./../mongoDB.js');
-  var doorChange = new doorStatus({
+  var door_data = {
     user: 'Admin',
     status: currentState
-  });
+  };
+  
+  var door = new doorStatus(door_data);
   
   // Have to save it to the database
-  doorChange.save(function(err){
+  door.save(function(err, data){
     if (err) throw err;
     console.log('Door Status Change Saved To Database!!');
   });
   
   // Test to see if it was entered into DB
-  mongoose.model('doorChange').find(function(err, doorStatuses){
+  doorStatus.find({}, function(err, data){
     if (err) throw err;
-    console.log(doorStatuses);
+    console.log(data);
   });
   
   // Exports
