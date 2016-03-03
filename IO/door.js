@@ -157,7 +157,7 @@ exports.currentStatusUpdate = function() {
   
   console.log(consoleLog.strGetTimeStamp() + ' Door ' + currentState + '.');
 // Log the status change to the database
-  //var doorStatus = require('../mongoDB');
+  var doorStatus = require('./../mongoDB.js');
   var doorChange = new mongoDB.doorStatus({
     user: 'Admin',
     status: currentState,
