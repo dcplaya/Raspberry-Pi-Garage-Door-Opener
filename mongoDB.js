@@ -35,7 +35,7 @@ db.once('open', function(){
     status: {
       type: String,
     },
-    comments: [Comment],
+    //comments: [Comment],
     creator: Schema.ObjectId
   });
   

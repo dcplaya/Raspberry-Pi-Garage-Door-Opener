@@ -161,8 +161,6 @@ exports.currentStatusUpdate = function() {
   var doorChange = new doorEntry({
     user: 'Admin',
     status: currentState,
-    comments: 'Testing my DB Stuff!'
-    creator: mongoose.Schema.ObjectId
   });
   
   // Have to save it to the database
