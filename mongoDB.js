@@ -22,7 +22,9 @@ db.on('error', console.error.bind(console, 'connection error:"'));
 db.once('open', function(){
   // we're are connected!
   console.log("Connection To Mongodb Established");
-  
+});
+
+
   // Set Up Door Open/Close Log Schema
   var doorStatusSchema = new Schema({
     date: {
@@ -92,6 +94,6 @@ db.once('open', function(){
   // Export the models so they can be used elseware in the Node application
   module.exports = doorStatus;
 //  module.exports = User;
-});
+
 
 
