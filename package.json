@@ -8,6 +8,8 @@
     "ejs": "^2.4.1",
     "emailjs": "^1.0.2",
     "gpio": "^0.2.7",
+    "mongodb": "^2.1.7",
+    "mongoose": "^4.4.6",
     "pad": "^1.0.0"
   },
   "devDependencies": {},
