@@ -40,23 +40,23 @@ db.once('open', function(){
   });
   
   // Set up username list Schema
-  var userSchema = new Schema({
+/*  var userSchema = new Schema({
     name: String,
     user: {
       type: String,
       index: true,
-      required: true,
+      //required: true,
       unique: true
     },
     password: {
       type: String,
-      required: true
+      //required: true
     },
     admin: Boolean,
     created_at: Date,
     updated_at: Date
   });
-  
+*/  
   // Add current date to every saved entry for DoorStatus Schema
   doorStatusSchema.pre('save', function(next){
     // get the current date
@@ -70,7 +70,7 @@ db.once('open', function(){
   });
   
   // Add current date to every saved entry for Users and also update the update field
-  userSchema.pre('save', function(next){
+/*  userSchema.pre('save', function(next){
     // get the current date
     var currentDate = new Date();
     
@@ -84,15 +84,14 @@ db.once('open', function(){
     next();
   });
   
-  
+ */ 
   // Make the schemas useful by creating a model for them
   var doorStatus = mongoose.model('DoorStatus', doorStatusSchema);
-  var User = mongoose.model('User', userSchema)
+//  var User = mongoose.model('User', userSchema);
   
   // Export the models so they can be used elseware in the Node application
-  model.exports = DoorStatus;
-  model.exports = User
-  
+  module.exports = doorStatus;
+//  module.exports = User;
 });
 
 
