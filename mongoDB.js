@@ -44,12 +44,12 @@ db.once('open', function(){
     name: String,
     user: {
       type: String,
-      index: true
+      index: true,
       required: true,
       unique: true
     },
     password: {
-      type: String
+      type: String,
       required: true
     },
     admin: Boolean,
