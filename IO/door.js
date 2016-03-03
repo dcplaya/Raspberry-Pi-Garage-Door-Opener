@@ -169,6 +169,12 @@ exports.currentStatusUpdate = function() {
     console.log('Door Status Change Saved To Database!!');
   });
   
+  // Test to see if it was entered into DB
+  doorChange.find({}, function(err, doorStatus){
+    if (err) throw err;
+    console.log(doorStatus);
+  });
+  
   // Exports
   module.exports.currentState = currentState;
 }
