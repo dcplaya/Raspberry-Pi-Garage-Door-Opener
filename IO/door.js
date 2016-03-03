@@ -156,6 +156,22 @@ exports.currentStatusUpdate = function() {
   }
   
   console.log(consoleLog.strGetTimeStamp() + ' Door ' + currentState + '.');
+// Log the status change to the database
+  var doorEntry = require('../mongoDB');
+  var doorChange = new doorEntry({
+    user: 'Admin',
+    status: currentState,
+    comments: 'Testing my DB Stuff!'
+    creator: mongoose.Schema.ObjectId
+  });
+  
+  // Have to save it to the database
+  doorChange.save(function(err){
+    if (err) throw err;
+    console.log('Door Status Change Saved To Database!!');
+  });
+  
+  // Exports
   module.exports.currentState = currentState;
 }
 
