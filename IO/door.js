@@ -170,7 +170,7 @@ exports.currentStatusUpdate = function() {
   });
   
   // Test to see if it was entered into DB
-  doorChange.find(function(err, doorStatuses){
+  mongoose.model('doorChange').find(function(err, doorStatuses){
     if (err) throw err;
     console.log(doorStatuses);
   });
