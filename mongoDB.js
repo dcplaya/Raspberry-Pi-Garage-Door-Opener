@@ -36,7 +36,7 @@ db.once('open', function(){
       type: String,
     },
     comments: [Comment],
-    creator: mongoose.Schema.ObjectId
+    creator: Schema.ObjectId
   });
   
   // Set up username list Schema
