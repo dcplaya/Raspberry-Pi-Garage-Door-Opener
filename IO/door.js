@@ -172,7 +172,7 @@ exports.currentStatusUpdate = function() {
   });
   
   // Test to see if it was entered into DB
-  doorStatus.find({}, function(err, data){
+  doorStatus.findOne({user: 'Admin' }, function(err, data){
     if (err) throw err;
     console.log(data);
   });
