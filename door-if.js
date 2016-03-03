@@ -17,11 +17,11 @@ var querystring = require('querystring');   // node module
 var email = require('emailjs');             // external module
 var pad = require('pad');                   // external module
 var fs = require('fs');                     // node module
-var mongo = require('mongoDB');             // MongoDB stuff
 
 // Include custom nodejs modules
 var consoleLog = require('./ConsoleLogging/consoleLog.js');
 var config = require('./config.js');                          //write the config file as a JSON format
+var mongo = require('./mongoDB.js');             // MongoDB stuff
 //var readConfig;
 //readConfig = JSON.parse(fs.readFileSync('./config.json'));
 // Various variable definitions.
