@@ -88,8 +88,8 @@ db.once('open', function(){
   
  */ 
   // Make the schemas useful by creating a model for them
-  var doorStatus = mongoose.model('DoorStatus', doorStatusSchema);
-//  var User = mongoose.model('User', userSchema);
+  var doorStatus = mongoose.model('DoorStatus', doorStatusSchema)
+//  var User = mongoose.model('User', userSchema)
   
   // Export the models so they can be used elseware in the Node application
   module.exports = doorStatus;

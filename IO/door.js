@@ -160,7 +160,7 @@ exports.currentStatusUpdate = function() {
   var doorStatus = require('./../mongoDB.js');
   var doorChange = new doorStatus({
     user: 'Admin',
-    status: currentState,
+    status: currentState
   });
   
   // Have to save it to the database
